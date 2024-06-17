@@ -1,5 +1,8 @@
+import 'package:booklily/shared/colors.dart';
 import 'package:booklily/splash_screen/splash_screen.dart';
+import 'package:booklily/views/home/bookDetails.dart';
 import 'package:booklily/views/home/home_view.dart';
+import 'package:booklily/views/seeAll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -13,18 +16,41 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _router = GoRouter(initialLocation: '/', routes: [
-    GoRoute(
-      name: 'splashscreen',
-      path: '/',
-      builder: (context, state) => SplashView(),
-    ),
-    GoRoute(
-      name: 'home',
-      path: '/home',
-      builder: (context, state) => HomeView(),
-    ),
-  ]);
+  final _router = GoRouter(
+    initialLocation: '/',
+    routes: [
+      GoRoute(
+        name: 'splashscreen',
+        path: '/',
+        builder: (context, state) => SplashView(),
+      ),
+      GoRoute(
+        name: 'home',
+        path: '/home',
+        builder: (context, state) {
+          return HomeView();
+        },
+        routes: [
+          GoRoute(
+            name: 'bookdetails',
+            path: 'bookDetails/:bookId',
+            builder: (context, state) {
+              final bookId = state.pathParameters['bookId']!;
+              return BookDetails(bookId: bookId);
+            },
+          ),
+          GoRoute(
+            name: 'seeAllBooks',
+            path: 'seeAllBooks/:category',
+            builder: (context, state) {
+              final category = state.pathParameters['category']!;
+              return SeeAllView(category: category);
+            },
+          ),
+        ],
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {

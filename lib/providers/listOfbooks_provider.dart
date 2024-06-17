@@ -1,39 +1,64 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:booklily/models/list_books.dart';
 import 'package:booklily/services/listOfbooks_service.dart';
 
 class BooksProvider extends ChangeNotifier {
-  List<ListBooks> _listOfBooks = [];
-  List<ListBooks> get listOfBooks => _listOfBooks;
+  Map<String, List<ListBooks>> _booksByCategory = {};
+  Map<String, List<ListBooks>> get booksByCategory => _booksByCategory;
 
   bool _isBooksLoaded = false;
   bool get isBooksLoaded => _isBooksLoaded;
 
-  Future<void> getAllBooksList() async {
-    _isBooksLoaded = false;
-    notifyListeners();
-    print('Fetching books...');
+  Future<void> getBooksByCategory(String category) async {
+    print('Fetching $category ...');
 
     try {
-      final result = await BookService.instance.getAllBooks();
-      print('Fetch result: ${result.statusCode}');
+      final result = await BookService.instance.getBooksByCategory(category);
 
       if (result.statusCode == 200) {
-        final allbooks = (result.data as List)
-            .map((book) => ListBooks.fromJson(book))
+        final data = result.data;
+
+        final List<dynamic> items = data['items'] ?? [];
+
+        final allBooks = items
+            .map((item) {
+              try {
+                return ListBooks.fromJson(item);
+              } catch (e) {
+                print('Error parsing book: $e');
+              }
+            })
+            .where((book) =>
+                book != null && book.volumeInfo.description.isNotEmpty)
             .toList();
-        _listOfBooks = allbooks;
-        print('Fetched books: $_listOfBooks'); 
+
+        _booksByCategory[category] = allBooks.cast<ListBooks>();
+        print('Fetched books for $category: ${_booksByCategory[category]}');
       } else {
-        _listOfBooks = [];
-        print('No books found'); 
+        _booksByCategory[category] = [];
+        print('No books found for $category');
       }
     } catch (e) {
-      print('Error fetching books: $e'); 
-      _listOfBooks = [];
+      print('Error fetching books for $category: $e');
+      _booksByCategory[category] = [];
     } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> getBooksByCategoryList() async {
+    _isBooksLoaded = false;
+
+    try {
+      await Future.wait([
+        getBooksByCategory('love'),
+        getBooksByCategory('life'),
+        getBooksByCategory('horror'),
+      ]);
       _isBooksLoaded = true;
+    } catch (e) {
+      print('Error fetching books by category list: $e');
+    } finally {
       notifyListeners();
     }
   }

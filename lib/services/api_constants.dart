@@ -1,16 +1,6 @@
-const String baseUrl =
-    'https://simple-books-api.glitch.me'; //where api is available
+const String baseUrl = 'https://www.googleapis.com/books/v1';
+const String googleBooksApiKey = 'AIzaSyBuVquKlmdHaQfXI2ZUuLUfqj3-7c9dBx0';
 
-//get
-const String getAllBooksAPI = '$baseUrl/books';
-const String getSingleBookAPI = '$baseUrl/books/:id';
-const String getAllOrdersAPI = '$baseUrl/orders';
-
-//update order
-const String updateOrderAPI = '$baseUrl/orders/:orderId';
-
-//post/order book
-const String orderBookAPI = '$baseUrl/orders';
-
-//delete
-const String deleteAnOrderAPI = '$baseUrl/orders/:orderId';
+String getBooksByCategoryUrl(String category) {
+  return '$baseUrl/volumes?q=intitle:$category&maxResults=40&orderBy=relevance&key=$googleBooksApiKey';
+}

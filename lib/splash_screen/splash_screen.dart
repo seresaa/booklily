@@ -12,21 +12,19 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   @override
-
- void initState(){
-  super.initState();
-  Future.delayed(const Duration(seconds: 3), (){
-    context.go('/home');
-  });
-  
-   }
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      context.go('/home');
+    });
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(color: BooklilyColors.purple),
+        decoration: BoxDecoration(color: BooklilyColors.blue),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
