@@ -96,7 +96,7 @@ class _BookDetailsState extends State<BookDetails> {
                                 children: [
                                   Text(
                                     book.volumeInfo.pageCount.toString(),
-                                    style: TextStyles.header(),
+                                    style: TextStyles.title(),
                                   ),
                                   Text(
                                     'Pages',
@@ -108,7 +108,7 @@ class _BookDetailsState extends State<BookDetails> {
                                 children: [
                                   Text(
                                     book.volumeInfo.contentVersion.toString(),
-                                    style: TextStyles.header(),
+                                    style: TextStyles.title(),
                                   ),
                                   Text(
                                     'Version',
@@ -120,7 +120,7 @@ class _BookDetailsState extends State<BookDetails> {
                                 children: [
                                   Text(
                                     book.volumeInfo.language.toString(),
-                                    style: TextStyles.header(),
+                                    style: TextStyles.title(),
                                   ),
                                   Text(
                                     'Language',

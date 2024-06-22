@@ -5,9 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 const double textHeadline = 25.0;
 const double textHeadline1 = 16.0;
 const double textSubhead = 13.0;
-const double textTitle = 20.0;
-const double textSubtitle = 16.0;
-const double textBody = 14.0;
+const double textTitle = 18.0;
 const double textCaption = 12.0;
 
 class TextStyles {
@@ -34,6 +32,12 @@ class TextStyles {
           fontSize: fontSize ?? textCaption,
           color: color ?? BooklilyColors.blackA1,
           fontWeight: fontWeight ?? FontWeight.normal);
+
+  static title({Color? color, double? fontSize, FontWeight? fontWeight}) =>
+      GoogleFonts.lato(
+          fontSize: fontSize ?? textTitle,
+          color: color ?? BooklilyColors.blueTxt,
+          fontWeight: fontWeight ?? FontWeight.bold);
 }
 
 extension StringExtension on String {

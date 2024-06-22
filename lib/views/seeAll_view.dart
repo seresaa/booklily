@@ -20,7 +20,7 @@ class _SeeAllViewState extends State<SeeAllView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: BooklilyColors.blueTxt,
-        title: Text('See All Books in ${widget.category}'),
+        title: Text('${widget.category}'),
       ),
       body: SafeArea(
         child: Column(

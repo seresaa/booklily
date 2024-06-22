@@ -9,12 +9,12 @@ class BooklilyColors {
   static Color blackA1 = const Color(0xFF181818);
   static Color blueTxt = const Color(0xFF305c6c);
 
-  static Gradient purpleGradient = const LinearGradient(
+  static Gradient blueGradient = const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
-      Color(0xFFD3B6F9),
-      Color(0xFFEEE0FF),
+      Color.fromARGB(255, 48, 92, 108),
+      Color.fromARGB(255, 72, 101, 117),
     ],
   );
 }
