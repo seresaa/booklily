@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:booklily/providers/bookDetails_provider.dart';
 import 'package:booklily/shared/custom_appbar.dart';
 import 'package:booklily/shared/custom_text_style.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BookDetails extends StatefulWidget {
   final String bookId;
@@ -135,16 +133,6 @@ class _BookDetailsState extends State<BookDetails> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 30),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: BooklilyColors.blueTxt),
-                          onPressed: () {
-                            _launchURL(book.volumeInfo.previewLink.toString());
-                          },
-                          child: Text('Preview',
-                              style: TextStyle(color: Colors.white)),
-                        )
                       ],
                     );
                   }
@@ -165,14 +153,5 @@ String _truncateDescription(String description) {
     return words.take(400).join('') + '...';
   } else {
     return description;
-  }
-}
-
-void _launchURL(String url) async {
-  final Uri uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(uri);
-  } else {
-    throw 'could not launch ${url}';
   }
 }

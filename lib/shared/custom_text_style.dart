@@ -2,7 +2,7 @@ import 'package:booklily/shared/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const double textHeadline = 25.0;
+const double textHeadline = 20.0;
 const double textHeadline1 = 16.0;
 const double textSubhead = 13.0;
 const double textTitle = 18.0;

@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(  
+      body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(color: BooklilyColors.blue),
@@ -36,7 +36,7 @@ class _SplashViewState extends State<SplashView> {
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxHeight: 250),
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/splash.png',
                     height: 120,
                     width: 120,
                   ),

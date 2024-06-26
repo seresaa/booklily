@@ -5,7 +5,6 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'components/card.dart';
 import 'components/searchBar.dart';
-import 'string_extensions.dart';
 import 'package:booklily/models/list_books.dart';
 import 'package:booklily/providers/listOfbooks_provider.dart';
 import 'package:booklily/providers/search_provider.dart';
