@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: Container(  
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(color: BooklilyColors.blue),

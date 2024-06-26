@@ -1,19 +1,19 @@
-import 'package:booklily/models/list_books.dart';
-import 'package:booklily/providers/listOfbooks_provider.dart';
-import 'package:booklily/providers/search_provider.dart';
-import 'package:booklily/shared/colors.dart';
-import 'package:booklily/shared/custom_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'components/card.dart';
 import 'components/searchBar.dart';
 import 'string_extensions.dart';
+import 'package:booklily/models/list_books.dart';
+import 'package:booklily/providers/listOfbooks_provider.dart';
+import 'package:booklily/providers/search_provider.dart';
+import 'package:booklily/shared/colors.dart';
+import 'package:booklily/shared/custom_text_style.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -37,11 +37,6 @@ class _HomeViewState extends State<HomeView> {
     super.didChangeDependencies();
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _cancelSearch() {
     setState(() {
       isSearching = false;
@@ -54,65 +49,65 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: BooklilyColors.blue,
       body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(color: BooklilyColors.blue),
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.menu,
-                      color: BooklilyColors.blueTxt,
-                      size: 35,
-                    ),
-                    Text(
-                      'Booklily',
-                      style: TextStyle(
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(color: BooklilyColors.blue),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(
+                        Icons.menu,
                         color: BooklilyColors.blueTxt,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        size: 35,
                       ),
-                    ),
-                    Icon(
-                      Icons.notifications,
-                      color: BooklilyColors.blueTxt,
-                      size: 35,
-                    ),
-                  ],
+                      Text(
+                        'Booklily',
+                        style: TextStyle(
+                          color: BooklilyColors.blueTxt,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Icon(
+                        Icons.notifications,
+                        color: BooklilyColors.blueTxt,
+                        size: 35,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SearchBar(
-                        controller: _controller,
-                        onChanged: _onSearchChanged,
-                        onTap: () {
-                          setState(() {
-                            isSearching = true;
-                          });
-                        },
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SearchBar(
+                          controller: _controller,
+                          onChanged: _onSearchChanged,
+                          onTap: () {
+                            setState(() {
+                              isSearching = true;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    if (isSearching)
-                      IconButton(
-                        icon: Icon(Icons.close, color: BooklilyColors.blueTxt),
-                        onPressed: _cancelSearch,
-                      ),
-                  ],
+                      if (isSearching)
+                        IconButton(
+                          icon:
+                              Icon(Icons.close, color: BooklilyColors.blueTxt),
+                          onPressed: _cancelSearch,
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-              CardWidget(),
-              Expanded(
-                child:
-                    isSearching ? _buildSearchResults() : _buildCategoryLists(),
-              ),
-            ],
+                if (!isSearching) CardWidget(),
+                isSearching ? _buildSearchResults() : _buildCategoryLists(),
+              ],
+            ),
           ),
         ),
       ),
@@ -123,11 +118,13 @@ class _HomeViewState extends State<HomeView> {
     return Consumer<SearchProvider>(
       builder: (context, searchProvider, _) {
         if (!searchProvider.isSearchedBook) {
-          return Center(child: Text('Search Here'));
+          return Center(child: Text('Find books'));
         }
         final searchResults =
             searchProvider.searchedBooks[_controller.text] ?? [];
         return ListView.builder(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
           itemCount: searchResults.length,
           itemBuilder: (context, bookIndex) {
             final book = searchResults[bookIndex];
@@ -154,6 +151,8 @@ class _HomeViewState extends State<HomeView> {
           return _buildLoadingShimmer();
         }
         return ListView.builder(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
           itemCount: categories.length,
           itemBuilder: (context, index) {
             final category = categories[index];

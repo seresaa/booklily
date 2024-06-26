@@ -52,44 +52,48 @@ class _BookDetailsState extends State<BookDetails> {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    return SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 20),
-                          Image.network(
-                            book!.volumeInfo.imageLinks.thumbnail,
-                            height: 200,
-                          ),
-                          SizedBox(height: 20),
-                          Text(
-                            book.volumeInfo.title,
-                            style: TextStyles.header(),
-                          ),
-                          Text(
-                            book.volumeInfo.authors.toString(),
-                            style: TextStyles.subHeader(),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            book.volumeInfo.publishedDate,
-                            style: TextStyles.header1(),
-                          ),
-                          SizedBox(height: 10),
-                          Column(
-                            children: [
-                              SizedBox(height: 20),
-                              Text(
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 20),
+                        Image.network(
+                          book!.volumeInfo.imageLinks.thumbnail,
+                          height: 200,
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          book.volumeInfo.title,
+                          style: TextStyles.header(),
+                        ),
+                        Text(
+                          book.volumeInfo.authors.toString(),
+                          style: TextStyles.subHeader(),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          book.volumeInfo.publishedDate,
+                          style: TextStyles.header1(),
+                        ),
+                        SizedBox(height: 10),
+                        Column(
+                          children: [
+                            SizedBox(height: 20),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
                                 _truncateDescription(
                                   book.volumeInfo.description,
                                 ),
+                                textAlign: TextAlign.justify,
                                 style: TextStyles.header1(),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 40),
-                          Row(
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 40),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
@@ -130,19 +134,18 @@ class _BookDetailsState extends State<BookDetails> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 30),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: BooklilyColors.blueTxt),
-                            onPressed: () {
-                              _launchURL(
-                                  book.volumeInfo.previewLink.toString());
-                            },
-                            child: Text('Preview',
-                                style: TextStyle(color: Colors.white)),
-                          )
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 30),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: BooklilyColors.blueTxt),
+                          onPressed: () {
+                            _launchURL(book.volumeInfo.previewLink.toString());
+                          },
+                          child: Text('Preview',
+                              style: TextStyle(color: Colors.white)),
+                        )
+                      ],
                     );
                   }
                 },
