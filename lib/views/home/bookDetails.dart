@@ -27,6 +27,7 @@ class _BookDetailsState extends State<BookDetails> {
     super.didChangeDependencies();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,10 +1,9 @@
-const String baseUrl = 'https://www.googleapis.com/books/v1';
-const String googleBooksApiKey = 'AIzaSyBuVquKlmdHaQfXI2ZUuLUfqj3-7c9dBx0';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 String getBooksByCategoryUrl(String category) {
-  return '$baseUrl/volumes?q=intitle:$category&maxResults=40&orderBy=relevance&key=$googleBooksApiKey';
+  return '${dotenv.env['baseUrl']}/volumes?q=intitle:$category&maxResults=40&orderBy=relevance&key=${dotenv.env['googleBooksApiKey']}';
 }
 
 String getSearchedBookUrl(String search) {
-  return '$baseUrl/volumes?q=intitle:$search&key=$googleBooksApiKey';
+  return '${dotenv.env['baseUrl']}/volumes?q=intitle:$search&key=${dotenv.env['googleBooksApiKey']}';
 }
